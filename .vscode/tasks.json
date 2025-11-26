@@ -1,0 +1,191 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    // ===== Build Tasks =====
+    {
+      "label": "TypeScript: Check Types",
+      "type": "npm",
+      "script": "check:types",
+      "problemMatcher": ["$tsc"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "clear": true,
+        "reveal": "never",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false
+      }
+    },
+
+    // ===== Biome Tasks =====
+    {
+      "label": "Biome: Check (Lint + Format)",
+      "type": "npm",
+      "script": "lint",
+      "problemMatcher": {
+        "owner": "biome",
+        "fileLocation": "relative",
+        "pattern": {
+          "regexp": "^(.+):(\\d+):(\\d+)\\s+(.+)$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "message": 4
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "clear": true,
+        "focus": false
+      }
+    },
+    {
+      "label": "Biome: Format Only",
+      "type": "npm",
+      "script": "format",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "silent",
+        "panel": "shared",
+        "clear": false
+      }
+    },
+
+    // ===== Next.js Tasks =====
+    {
+      "label": "Next.js: Dev Server",
+      "type": "npm",
+      "script": "dev",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "nextjs",
+        "source": "Next.js",
+        "pattern": {
+          "regexp": "^(.*)$",
+          "file": 1
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".*compiling|.*starting",
+          "endsPattern": ".*compiled|.*ready|.*failed"
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": false,
+        "focus": false
+      }
+    },
+    {
+      "label": "Next.js: Build Production",
+      "type": "npm",
+      "script": "build",
+      "problemMatcher": ["$tsc"],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true,
+        "focus": true
+      }
+    },
+
+    // ===== Database Tasks (Drizzle) =====
+    {
+      "label": "Database: Generate Migrations",
+      "type": "npm",
+      "script": "db:generate",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "clear": true,
+        "focus": true
+      }
+    },
+    {
+      "label": "Database: Run Migrations",
+      "type": "npm",
+      "script": "db:migrate",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "clear": true,
+        "focus": true
+      }
+    },
+    {
+      "label": "Database: Push Schema",
+      "type": "npm",
+      "script": "db:push",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "clear": true,
+        "focus": true
+      }
+    },
+    {
+      "label": "Database: Studio",
+      "type": "npm",
+      "script": "db:studio",
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "^(.*)$",
+          "file": 1
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".*starting|.*launching",
+          "endsPattern": ".*ready|.*listening"
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": false,
+        "focus": false
+      }
+    },
+    {
+      "label": "Database: Check Schema",
+      "type": "npm",
+      "script": "db:check",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      }
+    },
+
+    // ===== Compound Tasks =====
+    {
+      "label": "Full Check (Types + Biome)",
+      "dependsOn": ["TypeScript: Check Types", "Biome: Check (Lint + Format)"],
+      "dependsOrder": "sequence",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Start Development Environment",
+      "dependsOn": ["Next.js: Dev Server", "Database: Studio"],
+      "dependsOrder": "parallel",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always"
+      }
+    }
+  ]
+}

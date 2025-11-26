@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "biomejs.biome",
+    "bradlc.vscode-tailwindcss",
+    "YoavBls.pretty-ts-errors",
+    "usernamehw.errorlens",
+    "dotenv.dotenv-vscode",
+    "vitest.explorer"
+  ],
+  "unwantedRecommendations": [
+    "esbenp.prettier-vscode" // Using Biome instead
+  ]
+}
